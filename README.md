@@ -7,5 +7,6 @@ Website for managing a factory
 * I used .NET 6.0
 * I didnt made the num of actions feture my bad.
 * i used only bootstrap 4.1 for client no css at all. 
+* to register a user u can register via postman or the user is: Frodo and password is: 1234.
 
 
