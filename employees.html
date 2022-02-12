@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Employees</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+        <div class="container">
+          <a href="index.html" class="navbar-brand">Factory</a>
+          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav">
+              <li class="nav-item px-2">
+                <a href="employees.html" class="nav-link active">Employees</a>
+              </li>
+              <li class="nav-item px-2">
+                <a href="departments.html" class="nav-link">Departments</a>
+              </li>
+              <li class="nav-item px-2">
+                <a href="shift.html" class="nav-link">Shifts</a>
+              </li>
+            </ul>
+    
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item mr-3">
+                <a href="#" class="nav-link" id="welcome-name">
+                  <i class="fas fa-user"></i> Welcome User
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="login.html" class="nav-link" id="logout">
+                  <i class="fas fa-user-times"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+      <!-- HEADER -->
+      <header id="main-header" class="py-2 bg-primary text-white">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h1>
+                <i class="fas fa-wrench"></i> Employees</h1>
+            </div>
+            <div class="col-md-6">
+              <form class="form-inline my-2 my-lg-0" action="#searchModal">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" value="" aria-label="Search" id="search-input">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="search-button" data-target="#searchModal" data-toggle="modal">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </header>
+    
+      <section id="information-employees">
+        <div class="row">
+            <div class="col-md-12">
+              <table class="table table-bordered" id="employees-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Start work year</th>
+                      <th scope="col">Department Id</th>
+                      <th scope="col">List of shifts</th>
+                      <th scope="col">Delete/Edit/Add</th>
+                    </tr>
+                  </thead>
+                  <tbody id="t-body-employees" class="forFunctions">
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    
+      <!-- FOOTER -->
+      <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <p class="lead text-center">
+                Copyright &copy;
+                <span id="year"></span>
+                Raz
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- MODALS -->
+
+        <!-- Edit Employee MODAL -->
+
+  <div class="modal fade" id="editEmpModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Edit Employee</h5>
+          <button class="close" data-dismiss="modal">
+            <span id="x">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="id">ID</label>
+              <input type="text" class="form-control" value="" name="id" id="edit-emp-id">
+              <label for="fname">First name</label>
+              <input type="text" class="form-control" value="" name="fname" id="edit-emp-fname">
+              <label for="lname">Last name</label>
+              <input type="text" min="1"  class="form-control" value="" name="lname" id="edit-emp-lname">
+              <label for="swy">Start work year</label>
+              <input type="number" min="1"  class="form-control" value="" name="swy" id="edit-emp-swy">
+              <label for="lname">Department</label>
+              <select name="departments" value="" onchange="onchangeFriend()" id="select-dep-name">
+                
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" id="save-emp-changes">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- ADD Employee Shift MODAL -->
+
+    <div class="modal fade" id="addEmpShiftModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Add Employee Shift</h5>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="empId">Employee Id</label>
+                <input type="number" min="1" class="form-control" value="" name="empId" id="add-emp2-id">
+                <label for="shiftId">Shift Id</label>
+                <input type="number" min="1"  class="form-control" value="" name="shiftId" id="add-empshift-id">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" id="save-empShift-changes">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Modal -->
+
+    <div class="modal fade" id="searchModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Search Results</h5>
+            <button class="close" data-dismiss="modal">
+              <span id="x">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Start Work Year</th>
+                  <th scope="col">Department ID</th>
+                  <th scope="col">List of Shifts</th>
+                </tr>
+              </thead>
+              <tbody id="search-tbody" class="forFunctions">
+                <div id="for-error">
+                </div>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+      <script src="AuthService.js" defer></script>
+      <script src="./employeesService.js" defer></script>
+    
+      <script>
+        // Get the current year for the copyright
+        $('#year').text(new Date().getFullYear());
+    
+        CKEDITOR.replace('editor1');
+      </script>
+</body>
+</html>
